@@ -1,0 +1,9 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1765104241
+area_2d.gd::GDScript::9207288925150167167::1765104217::0::1::::<>Area2D<><>0<>0<><>::
+canvas_layer.gd::GDScript::7516798965997740842::1765104217::0::1::::<>CanvasLayer<><>0<>0<><>::
+character_body_2d.gd::GDScript::5522368870640826038::1765104217::0::1::::<>CharacterBody2D<><>0<>0<><>::
+dialougs.gd::GDScript::4606360843547903596::1765104217::0::1::::<>Node<><>0<>0<><>::
+icon.svg::CompressedTexture2D::1790880795757653::1765104217::1765104244::1::::<><><>0<>0<>1d558fff71561543e2cf7e0d300c3350<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+node_2d.tscn::PackedScene::2067450008304524526::1765104217::0::1::::<><><>0<>0<><>::uid://4q335xxs2p::::res://icon.svg<>uid://b6vmdcfd35fea::::res://dialougs.gd<>uid://d4gcx6eixxv88::::res://area_2d.gd
+README.md::TextFile::-1::1765104217::0::1::::<><><>0<>0<><>::
