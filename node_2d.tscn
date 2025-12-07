@@ -1,0 +1,266 @@
+[gd_scene load_steps=17 format=3 uid="uid://4pqund3nukl7"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://b6vmdcfd35fea" path="res://dialougs.gd" id="3_0hol4"]
+[ext_resource type="Script" uid="uid://d4gcx6eixxv88" path="res://area_2d.gd" id="3_epypp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
+size = Vector2(1165, 69)
+
+[sub_resource type="GDScript" id="GDScript_0e48y"]
+script/source = "extends CharacterBody2D
+
+
+var SPEED = 300.0
+var JUMP_VELOCITY = -400.0
+
+
+func _physics_process(delta: float) -> void:
+	if $\"../Area2D\".Dialoug:
+		SPEED = 0
+		pass
+	else:
+		SPEED = 300
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+
+
+func _on_button_2_pressed() -> void:
+	pass # Replace with function body.
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtcfe"]
+size = Vector2(126, 124)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+radius = 207.48253
+
+[sub_resource type="Animation" id="Animation_0e48y"]
+resource_name = "animation"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_epypp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0hol4"]
+_data = {
+&"RESET": SubResource("Animation_epypp"),
+&"animation": SubResource("Animation_0e48y")
+}
+
+[sub_resource type="Animation" id="Animation_kdubu"]
+resource_name = "new_animation"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d21ai"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rj586"]
+_data = {
+&"RESET": SubResource("Animation_d21ai"),
+&"new_animation": SubResource("Animation_kdubu")
+}
+
+[sub_resource type="Animation" id="Animation_0hol4"]
+resource_name = "new_animation"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q6r6c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdubu"]
+_data = {
+&"RESET": SubResource("Animation_q6r6c"),
+&"new_animation": SubResource("Animation_0hol4")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 659)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(572.5, -24.5)
+shape = SubResource("RectangleShape2D_0e48y")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(546, 0)
+scale = Vector2(9.53125, 1)
+texture = ExtResource("1_wtcfe")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(131, 527)
+script = SubResource("GDScript_0e48y")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_wtcfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_wtcfe")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(997, 521)
+script = ExtResource("3_epypp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0e48y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_wtcfe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_0hol4")
+}
+
+[node name="Label" type="Label" parent="Area2D"]
+offset_left = -13.0
+offset_top = -105.0
+offset_right = 27.0
+offset_bottom = -82.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Area2D"]
+
+[node name="ColorRect" type="ColorRect" parent="Area2D/CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 157.0
+offset_top = 26.0
+offset_right = 862.0
+offset_bottom = 205.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Area2D/CanvasLayer/ColorRect"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 17.0
+offset_right = 681.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 20
+text = "hello world"
+autowrap_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D/CanvasLayer/ColorRect/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_rj586")
+}
+
+[node name="dialougs" type="Node" parent="Area2D/CanvasLayer/ColorRect/Label"]
+script = ExtResource("3_0hol4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D/CanvasLayer/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_kdubu")
+}
+
+[node name="Button" type="Button" parent="Area2D/CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 615.0
+offset_top = 139.0
+offset_right = 690.0
+offset_bottom = 170.0
+text = "Yes"
+
+[node name="Button2" type="Button" parent="Area2D/CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 531.0
+offset_top = 139.0
+offset_right = 606.0
+offset_bottom = 170.0
+text = "No"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="pressed" from="Area2D/CanvasLayer/ColorRect/Button" to="Area2D" method="_on_button_pressed"]
+[connection signal="pressed" from="Area2D/CanvasLayer/ColorRect/Button2" to="Area2D" method="_on_button_2_pressed"]
